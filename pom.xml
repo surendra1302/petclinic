@@ -17,13 +17,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
-        <relativePath/> <!-- Lookup parent from repository -->
+        <version>2.7.6</version> <!-- Ensure this is the latest Spring Boot version -->
+        <relativePath /> <!-- Lookup parent from repository -->
     </parent>
 
     <properties>
         <java.version>11</java.version> <!-- Specify Java version -->
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
@@ -52,7 +51,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- MySQL Driver: For connecting to MySQL databases (uncomment if using MySQL) -->
+        <!-- MySQL Driver: Uncomment if using MySQL -->
         <!--
         <dependency>
             <groupId>mysql</groupId>
@@ -72,7 +71,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Spring Boot DevTools: For faster development with auto-restart and hot-swapping -->
@@ -82,7 +81,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -102,7 +100,15 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <!-- Maven Resources Plugin: To specify file encoding -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>
