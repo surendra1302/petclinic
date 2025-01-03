@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
+        <version>${spring-boot.version}</version>
         <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Spring Boot DevTools: For faster development with auto-restart and hot-swapping -->
@@ -82,7 +82,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -97,6 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -104,5 +104,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
