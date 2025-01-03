@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -16,41 +17,42 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
+        <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
     <properties>
-        <java.version>11</java.version> <!-- Change to 17 if needed -->
+        <java.version>11</java.version> <!-- Specify Java version -->
+        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter Web -->
+        <!-- Spring Boot Starter Web: RESTful API and Web MVC support -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Boot Starter Thymeleaf -->
+        <!-- Spring Boot Starter Thymeleaf: Template engine for views -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- Spring Boot Starter Data JPA -->
+        <!-- Spring Boot Starter Data JPA: For ORM with Hibernate and databases -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- H2 Database -->
+        <!-- H2 Database: Embedded database for development and testing -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- MySQL Driver -->
-        <!-- Uncomment if needed -->
+        <!-- MySQL Driver: For connecting to MySQL databases (uncomment if using MySQL) -->
         <!--
         <dependency>
             <groupId>mysql</groupId>
@@ -59,35 +61,42 @@
         </dependency>
         -->
 
-        <!-- Spring Boot Starter Test -->
+        <!-- Spring Boot Starter Test: Testing libraries like JUnit and Mockito -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Lombok -->
+        <!-- Lombok: For simplifying Java code (Getters, Setters, etc.) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Spring Boot DevTools -->
+        <!-- Spring Boot DevTools: For faster development with auto-restart and hot-swapping -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Spring Boot Maven Plugin: For running the application and packaging it into a JAR -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Compiler Plugin: To ensure Java 11 compilation -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -95,4 +104,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
