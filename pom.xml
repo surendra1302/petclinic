@@ -15,16 +15,15 @@
 
     <!-- Parent Spring Boot starter POM -->
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
-        <relativePath/> <!-- Lookup parent from repository -->
-    </parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.6</version>
+</parent>
 
     <properties>
-        <java.version>11</java.version> <!-- Specify Java version -->
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
-    </properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+</properties>
 
     <dependencies>
         <!-- Spring Boot Starter Web: RESTful API and Web MVC support -->
@@ -86,24 +85,17 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <!-- Spring Boot Maven Plugin: For running the application and packaging it into a JAR -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <!-- Maven Compiler Plugin: To ensure Java 11 compilation -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>11</source>
+                <target>11</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
