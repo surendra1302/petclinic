@@ -50,7 +50,6 @@ pipeline {
                 sh 'nohup mvn spring-boot:run &'
                 sleep(time: 15, unit: 'SECONDS') // Wait for the application to fully start
 
-                // Fetch the public IP and display the access URL
                 script {
                     def publicIp = sh(script: "curl -s https://checkip.amazonaws.com", returnStdout: true).trim()
                     echo "The application is running and accessible at: http://${publicIp}:8080"
@@ -77,7 +76,7 @@ pipeline {
         stage('Wait for 5 minutes') {
             steps {
                 echo 'Waiting for 5 minutes...'
-                sleep(time: 5, unit: 'MINUTES')  // Wait for 5 minutes
+                sleep(time: 5, unit: 'MINUTES') // Wait for 5 minutes
             }
         }
 
@@ -92,7 +91,6 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            // Any cleanup steps, like stopping the app or cleaning up the environment
             sh 'pkill -f "mvn spring-boot:run" || true' // Ensure the app is stopped
         }
     }
