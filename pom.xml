@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+    <groupId>com.example.petclinic</groupId>
     <artifactId>petclinic</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -18,10 +18,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
+        <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
     <properties>
         <java.version>11</java.version> <!-- Specify Java version -->
+        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
@@ -70,7 +72,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope> <!-- Updated to compile scope -->
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring Boot DevTools: For faster development with auto-restart and hot-swapping -->
