@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example.petclinic</groupId>
+    <groupId>com.example</groupId>
     <artifactId>petclinic</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -24,6 +24,10 @@
     <properties>
         <java.version>17</java.version> <!-- Specify Java version -->
         <spring-boot.version>3.0.6</spring-boot.version> <!-- Spring Boot version -->
+        <!-- SonarCloud Configuration -->
+        <sonar.organization>vikas0105</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>vikas0105_Parcel-service</sonar.projectKey>
     </properties>
 
     <dependencies>
@@ -82,7 +86,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -102,7 +105,13 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <!-- Sonar plugin for Java 17 compatibility -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.5.0.1254</version>
+            </plugin>
         </plugins>
     </build>
-
 </project>
