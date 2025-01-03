@@ -23,7 +23,6 @@
 
     <properties>
         <java.version>11</java.version> <!-- Specify Java version -->
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
