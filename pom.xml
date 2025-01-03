@@ -17,13 +17,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
+        <version>3.0.6</version> <!-- Use the latest Spring Boot version -->
         <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
     <properties>
-        <java.version>11</java.version> <!-- Specify Java version -->
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
+        <java.version>17</java.version> <!-- Specify Java version -->
+        <spring-boot.version>3.0.6</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
@@ -93,7 +93,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Maven Compiler Plugin: To ensure Java 11 compilation -->
+            <!-- Maven Compiler Plugin: To ensure Java 17 compilation -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
