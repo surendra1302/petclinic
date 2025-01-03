@@ -74,10 +74,10 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
+      stage('Wait for 5 minutes') {
             steps {
-                echo 'Stopping the application...'
-                sh 'pkill -f "petclinic-0.0.1-SNAPSHOT.jar" || true'
+                echo 'Waiting for 5 minutes...'
+                sleep(time: 5, unit: 'MINUTES')  // Wait for 5 minutes
             }
         }
     }
