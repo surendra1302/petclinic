@@ -10,51 +10,82 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Checking out code...'
+                echo 'Checking out the application code...'
                 checkout scm
             }
         }
 
-        stage('Set up Java 17') {
+        stage('Setup Environment') {
             steps {
-                echo 'Setting up Java 17...'
-                sh 'sudo apt update'
-                sh 'sudo apt install -y openjdk-17-jdk'
+                echo 'Setting up environment with Java 17 and Maven...'
+                sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y openjdk-17-jdk maven
+                '''
             }
         }
 
-        stage('Set up Maven') {
+        stage('Build Application') {
             steps {
-                echo 'Setting up Maven...'
-                sh 'sudo apt install -y maven'
-            }
-        }
-
-        stage('Build with Maven') {
-            steps {
-                echo 'Building project with Maven...'
+                echo 'Building the application using Maven...'
                 sh 'mvn clean package'
             }
         }
 
-        stage('Upload Artifact') {
+        stage('Test Application') {
             steps {
-                echo 'Uploading artifact...'
-                archiveArtifacts artifacts: 'target/petclinic-0.0.1-SNAPSHOT.jar', allowEmptyArchive: true
+                echo 'Running tests...'
+                sh 'mvn test'
+            }
+        }
+
+        stage('Archive Artifact') {
+            steps {
+                echo 'Archiving the built JAR artifact...'
+                archiveArtifacts artifacts: 'target/petclinic-0.0.1-SNAPSHOT.jar', allowEmptyArchive: false
             }
         }
 
         stage('Run Application') {
             steps {
-                echo 'Running Spring Boot application...'
-                sh 'nohup mvn spring-boot:run &'
-                sleep(time: 15, unit: 'SECONDS') // Wait for the application to fully start
+                echo 'Starting the Spring Boot application...'
+                sh 'nohup java -jar target/petclinic-0.0.1-SNAPSHOT.jar &'
+                sleep(time: 20, unit: 'SECONDS') // Wait for the application to start
 
-                // Fetch the public IP and display the access URL
+                // Fetch and display the public IP with access URL
                 script {
                     def publicIp = sh(script: "curl -s https://checkip.amazonaws.com", returnStdout: true).trim()
                     echo "The application is running and accessible at: http://${publicIp}:8080"
                 }
             }
         }
+
+        stage('Validate App is Running') {
+            steps {
+                echo 'Validating the application...'
+                script {
+                    def response = sh(script: 'curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8080', returnStdout: true).trim()
+                    if (response == "200") {
+                        echo 'The application is running successfully!'
+                    } else {
+                        error("The application failed to start. HTTP response code: ${response}")
+                    }
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Stopping the application...'
+                sh 'pkill -f "petclinic-0.0.1-SNAPSHOT.jar" || true'
+            }
+        }
     }
+
+    post {
+        always {
+            echo 'Cleaning up temporary resources...'
+            sh 'pkill -f "petclinic-0.0.1-SNAPSHOT.jar" || true'
+        }
+    }
+}
