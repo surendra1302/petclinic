@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
         MAVEN_HOME = '/usr/share/maven'
         PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
@@ -15,11 +15,11 @@ pipeline {
             }
         }
 
-        stage('Set up Java 17') {
+        stage('Set up Java 11') {
             steps {
-                echo 'Setting up Java 17...'
+                echo 'Setting up Java 11...'
                 sh 'sudo apt update'
-                sh 'sudo apt install -y openjdk-17-jdk'
+                sh 'sudo apt install -y openjdk-11-jdk'
             }
         }
 
