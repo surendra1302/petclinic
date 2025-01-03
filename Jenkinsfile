@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'  // Java 17
         MAVEN_HOME = '/usr/share/maven'
         PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
@@ -10,16 +10,16 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Checking out code...'
+                echo 'Checking out the code from SCM...'
                 checkout scm
             }
         }
 
-        stage('Set up Java 11') {
+        stage('Set up Java 17') {
             steps {
-                echo 'Setting up Java 11...'
+                echo 'Setting up Java 17...'
                 sh 'sudo apt update'
-                sh 'sudo apt install -y openjdk-11-jdk'
+                sh 'sudo apt install -y openjdk-17-jdk'
             }
         }
 
@@ -32,23 +32,23 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                echo 'Building project with Maven...'
+                echo 'Building the project with Maven...'
                 sh 'mvn clean package'
             }
         }
 
         stage('Upload Artifact') {
             steps {
-                echo 'Uploading artifact...'
+                echo 'Uploading the built artifact...'
                 archiveArtifacts artifacts: 'target/petclinic-1.0-SNAPSHOT.jar', allowEmptyArchive: true
             }
         }
 
         stage('Run Application') {
             steps {
-                echo 'Running Spring Boot application...'
+                echo 'Running the Spring Boot application...'
                 sh 'nohup mvn spring-boot:run &'
-                sleep(time: 15, unit: 'SECONDS') // Wait for the application to fully start
+                sleep(time: 15, unit: 'SECONDS') // Allow some time for the app to start
 
                 script {
                     def publicIp = sh(script: "curl -s https://checkip.amazonaws.com", returnStdout: true).trim()
@@ -59,7 +59,7 @@ pipeline {
 
         stage('Validate App is Running') {
             steps {
-                echo 'Validating that the app is running...'
+                echo 'Validating the app is running correctly...'
                 script {
                     def response = sh(script: 'curl --write-out "%{http_code}" --silent --output /dev/null http://localhost:8080', returnStdout: true).trim()
                     if (response == "200") {
@@ -76,7 +76,7 @@ pipeline {
         stage('Wait for 5 minutes') {
             steps {
                 echo 'Waiting for 5 minutes...'
-                sleep(time: 5, unit: 'MINUTES') // Wait for 5 minutes
+                sleep(time: 5, unit: 'MINUTES')  // Wait for 5 minutes
             }
         }
 
@@ -91,6 +91,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
+            // Any cleanup steps, like stopping the app or cleaning up the environment
             sh 'pkill -f "mvn spring-boot:run" || true' // Ensure the app is stopped
         }
     }
