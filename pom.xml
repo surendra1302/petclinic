@@ -17,13 +17,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version> <!-- Use the latest Spring Boot version -->
+        <version>3.0.1</version> <!-- Spring Boot 3.x -->
         <relativePath/> <!-- Lookup parent from repository -->
     </parent>
 
     <properties>
-        <java.version>11</java.version> <!-- Specify Java version -->
-        <spring-boot.version>2.7.6</spring-boot.version> <!-- Spring Boot version -->
+        <java.version>17</java.version> <!-- Specify Java 17 -->
+        <spring-boot.version>3.0.1</spring-boot.version> <!-- Spring Boot version -->
     </properties>
 
     <dependencies>
@@ -52,15 +52,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- MySQL Driver: For connecting to MySQL databases (uncomment if using MySQL) -->
-        <!--
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-
         <!-- Spring Boot Starter Test: Testing libraries like JUnit and Mockito -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -82,7 +73,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -93,16 +83,15 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Maven Compiler Plugin: To ensure Java 11 compilation -->
+            <!-- Maven Compiler Plugin: To ensure Java 17 compilation -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release> <!-- Ensure Java 17 features -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
